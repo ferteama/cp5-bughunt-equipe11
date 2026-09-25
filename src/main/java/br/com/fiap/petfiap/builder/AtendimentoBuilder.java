@@ -21,7 +21,7 @@ public class AtendimentoBuilder {
     }
 
     public AtendimentoBuilder comPet(String petNome, String petPorte) {
-        petNome = petNome;
+        this.petNome = petNome;
         this.petPorte = petPorte;
         return this;
     }
@@ -30,7 +30,7 @@ public class AtendimentoBuilder {
         this.tutorNome = tutorNome;
         return this;
     }
-
+    
     public AtendimentoBuilder comDataHora(LocalDateTime dataHora) {
         this.dataHora = dataHora;
         return this;
