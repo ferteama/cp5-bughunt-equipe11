@@ -31,7 +31,7 @@
 
 | # | Sintoma observado (o que fiz/vi) | Causa raiz (arquivo e linha aproximada) | Correção aplicada | Conceito da disciplina |
 |---|---|---|---|---|
-| bug01 |Falta da indicação da variável petNome em AtendimentoBuilder.classe no método "comPet" | Linha 24 AtendimentoBuilder.java | Adicionar "this." a variável | Revisão - Exercício ENADE: Questão 3 |
+| bug01 | Falta da indicação da variável petNome em AtendimentoBuilder.classe no método "comPet" | Linha 24 AtendimentoBuilder.java | Adicionar "this." a variável | Revisão - Exercício ENADE: Questão 3 |
 | bug02 | | | | |
 | bug03 | | | | |
 | bug04 | | | | |
