@@ -84,16 +84,41 @@ O projeto chegou com 20 testes, 9 vermelhos. Descreva como você usou as
 mensagens de falha (ex.: `expected: <Rex> but was: <null>`) para caçar os bugs.
 O que a suíte de testes tem de melhor do que testar tudo na mão com curl?
 
+Resposta:
+Usei as mensagens dos testes vermelhos como pistas para descobrir a diferença entre o comportamento esperado e o comportamento real.
+Por exemplo, quando aparecia expected: <Rex> but was: <null>, procurei primeiro onde o petNome era preenchido, chegando ao AtendimentoBuilder e encontrando o problema no atributo usado pelo método comPet.
+No AgendaServiceTest, o teste deveRecusarAgendamentoComHorarioJaOcupado() também mostrou que um mesmo horário deveria gerar HorarioOcupadoException.
+A partir disso, comparei o teste com o método agendar() e encontrei as comparações usando ==, que não verificavam corretamente o conteúdo dos objetos.
+A suíte é melhor que testar tudo manualmente com curl porque executa os cenários automaticamente e mostra exatamente qual comportamento esperado não foi cumprido.
+Além disso, os testes unitários rodam sem banco e sem subir o Spring, usando Mockito para substituir o AtendimentoRepository, tornando a investigação muito mais rápida.
+Por isso, cada teste vermelho funcionou como uma indicação objetiva de onde procurar a causa do bug, em vez de depender apenas da observação manual da API.
+
 ### 2. Mock e injeção de dependência (Aulas 13 a 15)
 No `AgendaServiceTest`, o `@Mock` cria um `AtendimentoRepository` falso e o
 `@InjectMocks` o injeta no service. Explique a relação disso com o `@Autowired`
 que o Spring faz em produção — quem "injeta" em cada mundo, e por que o teste
 consegue rodar sem banco e sem subir o Spring?
 
+Resposta:
+No AgendaServiceTest, o @Mock cria uma versão falsa do AtendimentoRepository, sem precisar acessar o Oracle ou executar uma consulta real.
+Depois, o @InjectMocks coloca esse repository falso dentro do AgendaService, permitindo testar diretamente o método agendar().
+Isso tem relação direta com o @Autowired usado no AgendaService em produção, onde quem resolve e injeta a dependência é o container do Spring.
+Na aplicação real, portanto, é o Spring que fornece uma implementação de AtendimentoRepository para o AgendaService.
+No teste, quem faz essa montagem é o Mockito, através do @InjectMocks, substituindo a infraestrutura real por um objeto controlado pelo teste.
+Por isso conseguimos usar when(repository.findByPetNome("Rex")).thenReturn(List.of()) e definir exatamente o que o repository deve retornar.
+Como o teste não inicia o contexto do Spring nem conecta ao banco, ele consegue testar somente a lógica do AgendaService de forma isolada e rápida.
+
 ### 3. `==` vs `.equals()` (Aula 7)
 Um dos bugs fazia o agendamento duplicado passar pela verificação de conflito.
 Explique por que `==` entre Strings e `LocalDateTime` falhou aqui, por que ele
 "funciona por sorte" com literais como `"Rex"`, e o que a sua correção mudou.
+
+Resposta:
+O bug estava no método agendar() do AgendaService, que originalmente comparava a.getPetNome() e a.getDataHora() usando ==.
+O == compara se duas referências apontam para o mesmo objeto, enquanto .equals() verifica a igualdade de conteúdo quando a classe implementa esse método.
+Com Strings também existe o problema: literais como "Rex" podem apontar para a mesma String internada, fazendo == parecer funcionar por sorte em alguns casos.
+A correção foi usar a.getPetNome().equals(novo.getPetNome()) e a.getDataHora().equals(novo.getDataHora()) em vez de ==.
+Com essa mudança o codigo não vai ter erro mesmo se as duas variaveis não apontem para o mesmo objecto.
 
 ### 4. Sobrescrita vs sobrecarga (Aula 7)
 Um dos bugs compilava sem nenhum erro: um método parecia sobrescrever
@@ -101,16 +126,43 @@ Um dos bugs compilava sem nenhum erro: um método parecia sobrescrever
 diferença entre override e overload nesse caso e por que a anotação `@Override`
 teria impedido o bug.
 
+Resposta:
+No projeto, Atendimento possui o método getDuracaoMinutos() sem parâmetros, que retorna 30 minutos.
+Em Tosa, o código tinha public int getDuracaoMinutos(String porte), parecendo uma sobrescrita, mas a assinatura era diferente.
+Isso é sobrecarga (overload), pois o método possui o mesmo nome, mas recebe um parâmetro adicional.
+Como consequência, quando o sistema chamava getDuracaoMinutos() através de uma referência de Atendimento, o método da classe pai continuava sendo usado.
+Para ser sobrescrita (override), Tosa precisaria declarar exatamente public int getDuracaoMinutos(), sem o parâmetro String porte.
+A anotação @Override teria evitado o problema porque o compilador verificaria se realmente existe um método correspondente na classe Atendimento.
+Nesse caso, @Override sobre getDuracaoMinutos(String porte) geraria erro de compilação e mostraria imediatamente que a assinatura estava errada.
+
 ### 5. Singleton manual vs bean do Spring (Aula 14)
 O `GeradorProtocolo` é um Singleton escrito à mão e causou um dos bugs.
 Explique o que ele garante, qual foi o bug, e por que o `AgendaService`
 (`@Service`) não corre o mesmo risco no container do Spring.
+
+Resposta:
+O GeradorProtocolo foi implementado manualmente para garantir uma única instância e manter uma numeração sequencial através do atributo contador.
+O bug estava no getInstancia(): quando instancia era null, ele criava new GeradorProtocolo(), mas não guardava corretamente essa nova instância na variável compartilhada.
+Assim, chamadas posteriores poderiam receber objetos diferentes e quebrar a sequência global dos protocolos.
+A correção fez a instância criada ser atribuída à variável instancia antes de retorná-la, mantendo o mesmo objeto.
+Já o AgendaService usa @Service, então sua criação e gerenciamento ficam sob responsabilidade do container do Spring.
+O Spring mantém o bean AgendaService como singleton por padrão dentro daquele contexto da aplicação, em vez de depender de um getInstancia() escrito manualmente.
+Por isso, o risco de esquecer de guardar a instância, como aconteceu no GeradorProtocolo, não existe nesse gerenciamento automático do Spring.
 
 ### 6. Cobertura de testes: onde parar? (Aula 15)
 Dos 6 testes novos que você escreveu, alguns ficaram vermelhos (revelaram
 bugs) e outros verdes de cara (regras já corretas). Vale a pena manter os que
 ficaram verdes? Em um projeto real com prazo, o que você priorizaria testar:
 caminho feliz, caminhos de erro, ou 100% de cobertura? Justifique.
+
+Resposta:
+Sim, vale a pena manter os testes que ficaram verdes, porque eles comprovam e documentam regras que já estavam funcionando corretamente.
+Mesmo não encontrando um bug, esses testes passam a proteger o comportamento contra alterações futuras e possíveis regressões.
+No projeto, a própria atividade determina que as seis regras sem cobertura devem receber testes, independentemente de o teste inicialmente ficar verde ou vermelho.
+Em um projeto real com prazo, eu priorizaria primeiro os caminhos de erro e as regras de negócio críticas, porque são onde um comportamento incorreto pode causar maior impacto.
+Depois, testaria os principais caminhos felizes para garantir que as operações normais continuam funcionando.
+Eu não usaria 100% de cobertura como único objetivo, porque cobertura mede quais linhas foram executadas, mas não garante que todos os comportamentos importantes foram realmente validados.
+O ideal é ter testes que representem os cenários importantes, especialmente entradas inválidas, exceções e regras de negócio, usando a cobertura como indicador e não como finalidade isolada.
 
 ---
 
