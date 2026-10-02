@@ -17,7 +17,7 @@
 
 | Campo | |
 |---|---|
-| **Total de bugs corrigidos** | 8 / 12 |
+| **Total de bugs corrigidos** | 9 / 12 |
 | **Total de ajustes de Clean Code** | 6 + 1 extra / 6 |
 | **Total de testes novos escritos** | 2 / 6 |
 | **Suíte final (Run As → JUnit Test)** | ___ testes, ___ falhas |
@@ -39,7 +39,7 @@
 | bug06 | Conflito de horário não era detectado. |`AgendaService.java`no método `agendar()` comparava `a.getPetNome()` e `a.getDataHora()` com `==`. | Trocar `==` por `.equals()` nas duas comparações. | Igualdade de objetos |
 | bug07 | A Busca por um ID inexistente retornava `null`. | `AgendaService.java`no método `buscarPorId()` capturava qualquer exceção e a engolia. | Removido o `try/catch` genérico, `AtendimentoNaoEncontradoException` passa a propagar normalmente. | Exceções específicas |
 | bug08 |`Banho.calcularPreco()` estava com os valores de PEQUENO e GRANDE invertidos. | `Banho.java` no método `calcularPreco()` retornava R$100 para o PEQUENO e R$60 no GRANDE. | Corrigidos para seus valores originais de acordo com a regra de negócio. | Polimorfismo / regra de negócio  |
-| bug09 | | | | |
+| bug09 | Tosa retornava duração herdada de 30 min. | Método `getDuracaoMinutos(String)` era sobrecarga, não sobrescrita. | Alterado para `getDuracaoMinutos()` com `@Override`. | Override / overload |
 | bug10 | | | | |
 | bug11 | | | | |
 | bug12 | | | | |
