@@ -48,7 +48,7 @@
 
 | # | Onde estava | Qual princípio/boas práticas era violado | O que eu mudei |
 |---|---|---|---|
-| clean01 | | | |
+| clean01 | `AtendimentoFactory.java`, no método `criar()` | O nome das variáveis dificultavam o seu entendimento. | Renomeamos as variáveis `p`, `t`, `n`, `po`, `tu` e `d` para `protocolo`, `tipo`, `petNome`, `petPorte`, `tutorNome` e `dataHora`. |
 | clean02 | | | |
 | clean03 | | | |
 | clean04 | | | |
