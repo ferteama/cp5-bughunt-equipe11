@@ -21,7 +21,11 @@ import java.util.Map;
 public class AtendimentoController {
 
     @Autowired
-    private AgendaService service;
+    private final AgendaService service;
+    
+    public AtendimentoController(AgendaService service) {
+    	this.service = service;
+    }
 
     // POST /api/atendimentos?tutorNome=Ana - Agendar atendimento
     // Ex.: POST "/api/atendimentos?tipo=BANHO&petNome=Rex&porte=PEQUENO&tutorNome=Ana&dataHora=2026-10-01T10:00"

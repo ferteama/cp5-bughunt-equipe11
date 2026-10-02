@@ -51,7 +51,7 @@
 | clean01 | `AtendimentoFactory.java`, no método `criar()` | O nome das variáveis dificultavam o seu entendimento. | Renomeamos as variáveis `p`, `t`, `n`, `po`, `tu` e `d` para `protocolo`, `tipo`, `petNome`, `petPorte`, `tutorNome` e `dataHora`. |
 | clean02 | `AgendaService.agendar()` | `System.out.println` dentro da camada de serviço, misturando regra de negócio com saída, não agregando nada ao mesmo. | Removemos o `System.out.println` do "recibo" |
 | clean03 | `GeradorProtocolo.java` | `System.out.println` de debug perdido dentro de código de produção  | Removemos o `System.out.println("GeradorProtocolo criado!")` |
-| clean04 | | | |
+| clean04 | `AtendimentoController` | Field injection escondia dependência e dificultava testes. | Trocamos `@Autowired` em campo por injeção via construtor.  |
 | clean05 | | | |
 | clean06 | | | |
 
