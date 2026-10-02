@@ -38,7 +38,7 @@
 | bug05 | `getInstancia()` retornava valores diferentes. | `GeradorProtocolo.java`, `método getInstancia()`. Singleton criava new `GeradorProtocolo()` sem guardar em instancia. | A instância agora passa a ser atribuída a instância antes de ser retornada. | Singleton |
 | bug06 | Conflito de horário não era detectado. |`AgendaService.java`no método `agendar()` comparava `a.getPetNome()` e `a.getDataHora()` com `==`. | Trocar `==` por `.equals()` nas duas comparações. | Igualdade de objetos |
 | bug07 | A Busca por um ID inexistente retornava `null`. | `AgendaService.java`no método `buscarPorId()` capturava qualquer exceção e a engolia. | Removido o `try/catch` genérico, `AtendimentoNaoEncontradoException` passa a propagar normalmente. | Exceções específicas |
-| bug08 | | | | |
+| bug08 |`Banho.calcularPreco()` estava com os valores de PEQUENO e GRANDE invertidos. | `Banho.java` no método `calcularPreco()` retornava R$100 para o PEQUENO e R$60 no GRANDE. | Corrigidos para seus valores originais de acordo com a regra de negócio | Polimorfismo / regra de negócio  |
 | bug09 | | | | |
 | bug10 | | | | |
 | bug11 | | | | |
