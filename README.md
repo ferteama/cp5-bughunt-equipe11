@@ -17,7 +17,7 @@
 
 | Campo | |
 |---|---|
-| **Total de bugs corrigidos** | 2 / 12 |
+| **Total de bugs corrigidos** | 3 / 12 |
 | **Total de ajustes de Clean Code** | ___ / 6 |
 | **Total de testes novos escritos** | ___ / 6 |
 | **Suíte final (Run As → JUnit Test)** | ___ testes, ___ falhas |
