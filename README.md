@@ -42,7 +42,7 @@
 | bug09 | Tosa retornava duração herdada de 30 min. | Método `getDuracaoMinutos(String)` era sobrecarga, não sobrescrita. | Alterado para `getDuracaoMinutos()` com `@Override`. | Override / overload |
 | bug10 | Era possível agendar atendimento no passado. | `AgendaService.agendar` não validava data/hora antes do repositório. | Adicionada validação com `IllegalArgumentException` antes de qualquer consulta. | Fail Fast / regra de negócio |
 | bug11 | Atendimento concluído ou cancelado podia ser cancelado novamente. | `Atendimento.cancelar` mudava o status sem validar o estado atual. | Agora só `AGENDADO` pode virar `CANCELADO`; demais lançam `StatusInvalidoException`. | Máquina de estados / exceções |
-| bug12 | | | | |
+| bug12 | Entidade nova podia chegar ao JPA sem estratégia de geração de ID. | Campo `id` tinha apenas `@Id`. | Adicionado `@GeneratedValue(strategy = GenerationType.IDENTITY)`. | JPA / persistência |
 
 ## Parte 2 — Ajustes de Clean Code
 
