@@ -65,7 +65,7 @@
 
 | # | Teste escrito (classe.método) | Regra coberta | Resultado ao escrever (vermelho/verde) |
 |---|---|---|---|
-| teste01 | | | |
+| teste01 | `BanhoTest.deveCalcularPrecoDoBanhoConformePorte` | Banho custa 60/80/100 para pequeno/médio/grande. | Verde — já haviamos corrigido esse problema no `bug08`, rodamos para confirmar se está correto. |
 | teste02 | | | |
 | teste03 | | | |
 | teste04 | | | |
