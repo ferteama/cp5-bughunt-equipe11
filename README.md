@@ -19,7 +19,7 @@
 |---|---|
 | **Total de bugs corrigidos** | 9 / 12 |
 | **Total de ajustes de Clean Code** | 6 + 1 extra / 6 |
-| **Total de testes novos escritos** | 2 / 6 |
+| **Total de testes novos escritos** | 4 / 6 |
 | **Suíte final (Run As → JUnit Test)** | ___ testes, ___ falhas |
 
 ---
@@ -68,7 +68,7 @@
 | teste01 | `BanhoTest.deveCalcularPrecoDoBanhoConformePorte` | Banho custa 60/80/100 para pequeno/médio/grande. | Verde — já haviamos corrigido esse problema no `bug08`, rodamos para confirmar se está correto. |
 | teste02 | `TosaTest.deveDurar60Minutos` | Tosa dura 60 minutos. | Vermelho — nos revelou o `bug09`. |
 | teste03 | `ConsultaVeterinariaTest.deveCustar150ReaisIndependentementeDoPorte` | Consulta custa R$150 para qualquer porte. | Verde — regra já estava correta. |
-| teste04 | | | |
+| teste04 | `AgendaServiceTest.deveRecusarAgendamentoNoPassadoSemConsultarBanco` | Data/hora no passado deve falhar antes de acessar o banco. | Vermelho — revelou bug10. |
 | teste05 | | | |
 | teste06 | | | |
 

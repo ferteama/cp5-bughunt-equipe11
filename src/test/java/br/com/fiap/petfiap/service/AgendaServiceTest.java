@@ -20,6 +20,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.never;
+import static org.mockito.Mockito.verifyNoInteractions;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
@@ -109,5 +110,46 @@ public class AgendaServiceTest {
 
         // Act + Assert
         assertThrows(AtendimentoNaoEncontradoException.class, () -> service.buscarPorId(99L));
+    }
+
+    @Test
+    public void deveRecusarAgendamentoNoPassadoSemConsultarBanco() {
+        // Arrange
+        Banho passado = new Banho(10, "Rex", "PEQUENO", "Ana", LocalDateTime.now().minusHours(1));
+
+        // Act + Assert
+        assertThrows(IllegalArgumentException.class, () -> service.agendar(passado));
+        verifyNoInteractions(repository);
+    }
+
+    @Test
+    public void deveCancelarAtendimentoAgendado() {
+        // Arrange
+        Banho agendado = banhoDoRexAmanha10h();
+        when(repository.findById(1L)).thenReturn(Optional.of(agendado));
+        when(repository.save(agendado)).thenReturn(agendado);
+
+        // Act
+        Atendimento cancelado = service.cancelar(1L);
+
+        // Assert
+        assertEquals("CANCELADO", cancelado.getStatus());
+        verify(repository).save(agendado);
+    }
+
+    @Test
+    public void deveRecusarCancelamentoQuandoAtendimentoNaoEstaAgendado() {
+        // Arrange
+        Banho concluido = banhoDoRexAmanha10h();
+        concluido.setStatus("CONCLUIDO");
+        Banho cancelado = banhoDoRexAmanha10h();
+        cancelado.setStatus("CANCELADO");
+        when(repository.findById(1L)).thenReturn(Optional.of(concluido));
+        when(repository.findById(2L)).thenReturn(Optional.of(cancelado));
+
+        // Act + Assert
+        assertThrows(StatusInvalidoException.class, () -> service.cancelar(1L));
+        assertThrows(StatusInvalidoException.class, () -> service.cancelar(2L));
+        verify(repository, never()).save(any());
     }
 }
