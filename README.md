@@ -33,7 +33,7 @@
 |---|---|---|---|---|
 | bug01 | Falta da indicação da variável petNome em AtendimentoBuilder.classe no método "comPet" | Linha 24 AtendimentoBuilder.java | Adicionar "this." a variável | Revisão - Exercício ENADE: Questão 3 |
 | bug02 | O Builder aceitava a criação de um atendimento sem nome ou sem porte. | AtendimentoBuilder.java no método construir(). Não havia validação do nome do pet nem mesmo do porte antes de chamar a Factory. | Adicionamos validações fail test e lançamento de IllegalArgumentException. | Exceções / Validação / Builder |
-| bug03 | | | | |
+| bug03 | Deveria criar objeto do tipo `Tosa` ao invés do tipo `Banho`. | `AtendimentoFactory`. O case `Tosa` instanciava `Banho`. | Substituição para case `Tosa` -> new `Tosa(...)`. | Factory / Polimorfismo |
 | bug04 | | | | |
 | bug05 | | | | |
 | bug06 | | | | |
