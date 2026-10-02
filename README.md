@@ -17,8 +17,8 @@
 
 | Campo | |
 |---|---|
-| **Total de bugs corrigidos** | 3 / 12 |
-| **Total de ajustes de Clean Code** | ___ / 6 |
+| **Total de bugs corrigidos** | 7 / 12 |
+| **Total de ajustes de Clean Code** | 3 / 6 |
 | **Total de testes novos escritos** | ___ / 6 |
 | **Suíte final (Run As → JUnit Test)** | ___ testes, ___ falhas |
 
@@ -50,7 +50,7 @@
 |---|---|---|---|
 | clean01 | `AtendimentoFactory.java`, no método `criar()` | O nome das variáveis dificultavam o seu entendimento. | Renomeamos as variáveis `p`, `t`, `n`, `po`, `tu` e `d` para `protocolo`, `tipo`, `petNome`, `petPorte`, `tutorNome` e `dataHora`. |
 | clean02 | `AgendaService.agendar()` | `System.out.println` dentro da camada de serviço, misturando regra de negócio com saída, não agregando nada ao mesmo. | Removemos o `System.out.println` do "recibo" |
-| clean03 | | | |
+| clean03 | `GeradorProtocolo.java` | `System.out.println` de debug perdido dentro de código de produção  | Removemos o `System.out.println("GeradorProtocolo criado!")` |
 | clean04 | | | |
 | clean05 | | | |
 | clean06 | | | |

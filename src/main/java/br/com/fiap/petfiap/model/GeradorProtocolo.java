@@ -5,13 +5,12 @@ package br.com.fiap.petfiap.model;
 // Thread-safe para o uso concorrente do pet shop.
 public class GeradorProtocolo {
 
-    private static GeradorProtocolo instancia;
+    private static GeradorProtocolo instancia = new GeradorProtocolo();
 
     private int contador;
 
     private GeradorProtocolo() {
         contador = 0;
-        System.out.println("GeradorProtocolo criado!");
     }
 
     public static GeradorProtocolo getInstancia() {
