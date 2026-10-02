@@ -67,7 +67,7 @@
 |---|---|---|---|
 | teste01 | `BanhoTest.deveCalcularPrecoDoBanhoConformePorte` | Banho custa 60/80/100 para pequeno/médio/grande. | Verde — já haviamos corrigido esse problema no `bug08`, rodamos para confirmar se está correto. |
 | teste02 | `TosaTest.deveDurar60Minutos` | Tosa dura 60 minutos. | Vermelho — nos revelou o `bug09`. |
-| teste03 | | | |
+| teste03 | `ConsultaVeterinariaTest.deveCustar150ReaisIndependentementeDoPorte` | Consulta custa R$150 para qualquer porte. | Verde — regra já estava correta. |
 | teste04 | | | |
 | teste05 | | | |
 | teste06 | | | |
