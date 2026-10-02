@@ -54,7 +54,7 @@
 | clean04 | `AtendimentoController` | Field injection escondia dependência e dificultava testes. | Trocamos `@Autowired` em campo por injeção via construtor.  |
 | clean05 | `AtendimentoController` | Código morto: método privado que nunca é chamado em lugar nenhum do sistema.| Removemos o método  do controller. |
 | clean06 |`AgendaService`| Mesmo problema de field injection. | Trocamos o mesmo por injeção via construtor. |
-
+| clean07 (extra) |GeradorProtocolo.getInstancia| No comentário da classe afirma que é "thread-safe", mas o método não tem sincronização. | Adicionamos synchronized no método getInstancia().|
 
 ## Parte 3 — Testes novos (regras que estavam sem cobertura)
 
