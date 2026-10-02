@@ -17,9 +17,9 @@
 
 | Campo | |
 |---|---|
-| **Total de bugs corrigidos** | 7 / 12 |
-| **Total de ajustes de Clean Code** | 3 / 6 |
-| **Total de testes novos escritos** | ___ / 6 |
+| **Total de bugs corrigidos** | 8 / 12 |
+| **Total de ajustes de Clean Code** | 6 + 1 extra / 6 |
+| **Total de testes novos escritos** | 2 / 6 |
 | **Suíte final (Run As → JUnit Test)** | ___ testes, ___ falhas |
 
 ---
@@ -66,7 +66,7 @@
 | # | Teste escrito (classe.método) | Regra coberta | Resultado ao escrever (vermelho/verde) |
 |---|---|---|---|
 | teste01 | `BanhoTest.deveCalcularPrecoDoBanhoConformePorte` | Banho custa 60/80/100 para pequeno/médio/grande. | Verde — já haviamos corrigido esse problema no `bug08`, rodamos para confirmar se está correto. |
-| teste02 | | | |
+| teste02 | `TosaTest.deveDurar60Minutos` | Tosa dura 60 minutos. | Vermelho — nos revelou o `bug09`. |
 | teste03 | | | |
 | teste04 | | | |
 | teste05 | | | |
