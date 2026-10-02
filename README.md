@@ -38,7 +38,7 @@
 | bug05 | `getInstancia()` retornava valores diferentes. | `GeradorProtocolo.java`, `método getInstancia()`. Singleton criava new `GeradorProtocolo()` sem guardar em instancia. | A instância agora passa a ser atribuída a instância antes de ser retornada. | Singleton |
 | bug06 | Conflito de horário não era detectado. |`AgendaService.java`no método `agendar()` comparava `a.getPetNome()` e `a.getDataHora()` com `==`. | Trocar `==` por `.equals()` nas duas comparações. | Igualdade de objetos |
 | bug07 | A Busca por um ID inexistente retornava `null`. | `AgendaService.java`no método `buscarPorId()` capturava qualquer exceção e a engolia. | Removido o `try/catch` genérico, `AtendimentoNaoEncontradoException` passa a propagar normalmente. | Exceções específicas |
-| bug08 |`Banho.calcularPreco()` estava com os valores de PEQUENO e GRANDE invertidos. | `Banho.java` no método `calcularPreco()` retornava R$100 para o PEQUENO e R$60 no GRANDE. | Corrigidos para seus valores originais de acordo com a regra de negócio | Polimorfismo / regra de negócio  |
+| bug08 |`Banho.calcularPreco()` estava com os valores de PEQUENO e GRANDE invertidos. | `Banho.java` no método `calcularPreco()` retornava R$100 para o PEQUENO e R$60 no GRANDE. | Corrigidos para seus valores originais de acordo com a regra de negócio. | Polimorfismo / regra de negócio  |
 | bug09 | | | | |
 | bug10 | | | | |
 | bug11 | | | | |
@@ -50,9 +50,9 @@
 |---|---|---|---|
 | clean01 | `AtendimentoFactory.java`, no método `criar()` | O nome das variáveis dificultavam o seu entendimento. | Renomeamos as variáveis `p`, `t`, `n`, `po`, `tu` e `d` para `protocolo`, `tipo`, `petNome`, `petPorte`, `tutorNome` e `dataHora`. |
 | clean02 | `AgendaService.agendar()` | `System.out.println` dentro da camada de serviço, misturando regra de negócio com saída, não agregando nada ao mesmo. | Removemos o `System.out.println` do "recibo" |
-| clean03 | `GeradorProtocolo.java` | `System.out.println` de debug perdido dentro de código de produção  | Removemos o `System.out.println("GeradorProtocolo criado!")` |
+| clean03 | `GeradorProtocolo.java` | `System.out.println` de debug perdido dentro de código de produção.  | Removemos o `System.out.println("GeradorProtocolo criado!")` |
 | clean04 | `AtendimentoController` | Field injection escondia dependência e dificultava testes. | Trocamos `@Autowired` em campo por injeção via construtor.  |
-| clean05 | | | |
+| clean05 | `AtendimentoController` | Código morto: método privado que nunca é chamado em lugar nenhum do sistema.| Removemos o método  do controller. |
 | clean06 | | | |
 
 ## Parte 3 — Testes novos (regras que estavam sem cobertura)
