@@ -17,7 +17,7 @@
 
 | Campo | |
 |---|---|
-| **Total de bugs corrigidos** | ___ / 12 |
+| **Total de bugs corrigidos** | 2 / 12 |
 | **Total de ajustes de Clean Code** | ___ / 6 |
 | **Total de testes novos escritos** | ___ / 6 |
 | **Suíte final (Run As → JUnit Test)** | ___ testes, ___ falhas |
@@ -32,7 +32,7 @@
 | # | Sintoma observado (o que fiz/vi) | Causa raiz (arquivo e linha aproximada) | Correção aplicada | Conceito da disciplina |
 |---|---|---|---|---|
 | bug01 | Falta da indicação da variável petNome em AtendimentoBuilder.classe no método "comPet" | Linha 24 AtendimentoBuilder.java | Adicionar "this." a variável | Revisão - Exercício ENADE: Questão 3 |
-| bug02 | | | | |
+| bug02 | O Builder aceitava a criação de um atendimento sem nome ou sem porte. | AtendimentoBuilder.java no método construir(). Não havia validação do nome do pet nem mesmo do porte antes de chamar a Factory. | Adicionamos validações fail test e lançamento de IllegalArgumentException. | Exceções / Validação / Builder |
 | bug03 | | | | |
 | bug04 | | | | |
 | bug05 | | | | |
