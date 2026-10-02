@@ -36,8 +36,8 @@
 | bug03 | Deveria criar objeto do tipo `Tosa` ao invés do tipo `Banho`. | `AtendimentoFactory`. O case `Tosa` instanciava `Banho`. | Substituição para case `Tosa` -> new `Tosa(...)`. | Factory/Polimorfismo |
 | bug04 | Criava consulta veterinária com dados vazios/não preenchidos.| Em `ConsultaVeterinaria.java` os parâmetros recebidos não eram utilizados pelo `super()`.| Modificado para super(protocolo, petNome, petPorte, tutorNome, dataHora). | Herança/Construtores |
 | bug05 | `getInstancia()` retornava valores diferentes. | `GeradorProtocolo.java`, `método getInstancia()`. Singleton criava new `GeradorProtocolo()` sem guardar em instancia. | A instância agora passa a ser atribuída a instância antes de ser retornada. | Singleton |
-| bug06 | Conflito de horário não era detectado. |`AgendaService.agendar`no método `agendar()` comparava `a.getPetNome()` e `a.getDataHora()` com `==`. | Trocar `==` por `.equals()` nas duas comparações | Igualdade de objetos |
-| bug07 | | | | |
+| bug06 | Conflito de horário não era detectado. |`AgendaService.java`no método `agendar()` comparava `a.getPetNome()` e `a.getDataHora()` com `==`. | Trocar `==` por `.equals()` nas duas comparações. | Igualdade de objetos |
+| bug07 | A Busca por um ID inexistente retornava `null`. | `AgendaService.java`no método `buscarPorId()` capturava qualquer exceção e a engolia. | Removido o `try/catch` genérico, `AtendimentoNaoEncontradoException` passa a propagar normalmente. | Exceções específicas |
 | bug08 | | | | |
 | bug09 | | | | |
 | bug10 | | | | |
