@@ -49,7 +49,7 @@
 | # | Onde estava | Qual princípio/boas práticas era violado | O que eu mudei |
 |---|---|---|---|
 | clean01 | `AtendimentoFactory.java`, no método `criar()` | O nome das variáveis dificultavam o seu entendimento. | Renomeamos as variáveis `p`, `t`, `n`, `po`, `tu` e `d` para `protocolo`, `tipo`, `petNome`, `petPorte`, `tutorNome` e `dataHora`. |
-| clean02 | | | |
+| clean02 | `AgendaService.agendar()` | `System.out.println` dentro da camada de serviço, misturando regra de negócio com saída, não agregando nada ao mesmo. | Removemos o `System.out.println` do "recibo" |
 | clean03 | | | |
 | clean04 | | | |
 | clean05 | | | |
